@@ -1,0 +1,89 @@
+{template 'common/header'}
+{template 'common/headlib'}
+
+<div style="width: 95%;margin: auto;margin-top: 20px;">
+    <table id="showMsgTable" lay-filter="test"></table>
+</div>
+
+
+<script>
+    layui.use(['layer', 'table'], function(){
+        layer = layui.layer;
+        table = layui.table;
+
+        var tableIndex = table.render({
+            elem: '#showMsgTable'
+            ,url: '/web/index.php?c=site&a=entry&do=GetMsgListDataApi&m=sc_blog' //数据接口
+            ,page: true //开启分页
+            ,limit:15
+            ,cols: [[ //表头
+                {field: 'id',width:'8%', title: 'ID'}
+                ,{field: 'content', title: '内容'}
+                ,{field: 'nickname', title: '评论人'}
+                ,{field: 'cdat', title: '评论时间'}
+                ,{field: '', title: '状态',width:'8%', templet: function(d){
+                        var str = '<input type="checkbox" lay-skin="switch" lay-text="ON|OFF" ' + (d.state == 1 ? 'checked' : '') + '>';
+                        return str;
+                    }}
+                ,{field: '', title: '操作',width:'12%', templet: function(d){
+                    if (d.state == 1) {
+                        var str = "<a class='layui-btn layui-btn-sm layui-btn-danger' style='color:white;' onclick='changeState(\""+ d.id +"\")'>禁止</a>";
+                    } else {
+                        var str = "<a class='layui-btn layui-btn-sm' style='color:white;' onclick='changeState(\""+ d.id +"\")'>允许</a>";
+                    }
+                    str += "<a class='layui-btn layui-btn-sm layui-btn-danger' style='color:white;' onclick='deleteMsg(\""+ d.id +"\")'>删除</a>";
+                    return str;
+                }}
+            ]]
+            ,response: {
+                statusName: 'status' //规定数据状态的字段名称，默认：code
+                ,statusCode: "YES" //规定成功的状态码，默认：0
+                ,msgName: 'info' //规定状态信息的字段名称，默认：msg
+                ,countName: 'total' //规定数据总数的字段名称，默认：count
+                ,dataName: 'data' //规定数据列表的字段名称，默认：data
+            },
+            text: {
+                none: '暂无相关数据'
+            }
+        });
+    });
+
+    /**
+        * 删除数据
+        * @param id
+        */
+    function deleteMsg(id){
+        var url = '/web/index.php?c=site&a=entry&do=DeleteMsgApi&m=sc_blog&id=' + id;
+        $.get(url, function (datas){
+
+            if (datas.status == 'YES') {
+                layer.msg(datas.info, {anim:0}, function(){
+                    window.location.reload();
+                });
+            } else {
+                layer.msg(datas.info);
+            }
+        }, 'json');
+    }
+    
+    function changeState(id) {
+        var url = '/web/index.php?c=site&a=entry&do=ChangeMsgStateApi&m=sc_blog&id=' + id;
+        $.get(url, function (datas){
+            if (datas.status == 'YES') {
+                layer.msg(datas.info, {anim:0}, function(){
+                    window.location.reload();
+                });
+            } else {
+                layer.msg(datas.info);
+            }
+        }, 'json');
+    }
+</script>
+
+
+<style>
+
+</style>
+
+
+{template 'common/footer'}

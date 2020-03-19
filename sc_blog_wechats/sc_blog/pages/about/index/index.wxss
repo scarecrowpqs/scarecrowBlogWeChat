@@ -1,0 +1,79 @@
+.showUserInfoForm{
+    width: 100%;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.showBackgroundImg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -100;
+}
+
+.showBackgroundImg > image{
+    width: 100%;
+    height: 100%;
+}
+
+.showHeadImg{
+    position: relative;
+    margin: auto;
+    margin-top: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 20px;
+}
+
+.showHeadImg > image {
+    width: 100%;
+    height: 100%;
+    border-radius: 60px;
+}
+
+.showName{
+    margin-top: 5px;
+    text-align: center;
+    width: 100%;
+    color: #555555;
+    font-weight: 600;
+}
+
+.shwoSex{
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    position: absolute;
+    top: 46px;
+    left: 25px;
+}
+
+.shwoSex > image{
+    width: 100%;
+    height: 100%;
+}
+
+.showUserAbout{
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    bottom: 0px;
+}
+
+.showUserAbout > view{
+    display: inline-block;
+    width: 80px;
+    height: 100%;
+    margin-left: calc(calc(100% - 240px) / 4)
+}
+
+.showUserAbout > view > view {
+    width: 100%;
+    height: 50%;
+    text-align: center;
+    color: #555555;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 25px;
+}

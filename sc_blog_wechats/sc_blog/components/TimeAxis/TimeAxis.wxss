@@ -1,0 +1,92 @@
+.timeaxisForm{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.timeaxisForm > view{
+    width: 48%;
+    height: 100%;
+    display: inline-block;
+    margin: 0px;
+    vertical-align: middle;
+    font-size: 13px;
+    color: white;
+}
+
+.leftShowTime{
+    text-align: right;
+    line-height: 17.5px;
+}
+
+
+.leftShowRedio{
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    background-color: #13A9F6;
+    position: relative;
+    right: -7.5px;
+    top:2px;
+    display: inline-block;
+    z-index: 0;
+}
+
+.rightShowContent{
+    border-left: 1px solid #13A9F6;
+    padding-left: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px; 
+}
+
+.rithtContent{
+    width: 70%;
+    min-height: 20px;
+    word-break:break-all;
+    border: 1px solid #e6e6e6;
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    text-indent: 2rem;
+}
+
+
+
+.rightShowTime{
+    text-align: left;
+    line-height: 17.5px;
+}
+
+
+.rightShowRedio{
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    background-color: #13A9F6;
+    position: relative;
+    left: -7.5px;
+    top:2px;
+    display: inline-block;
+    z-index: 0;
+}
+
+.leftShowContent{
+    border-right: 1px solid #13A9F6;
+    /* padding-right: 10px; */
+    text-align: right;
+    padding-top: 20px;
+    padding-bottom: 20px; 
+}
+
+.leftContent{
+    width: 70%;
+    min-height: 20px;
+    word-break:break-all;
+    border: 1px solid #e6e6e6;
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-right: 10px;
+    text-indent: 2rem;
+    text-align: left;
+}

@@ -1,0 +1,8 @@
+<navigation nav-height="{{navHeight}}" showReturnIcon="{{true}}" showTitleContent="{{title}}"  title-postion="center"></navigation>
+
+<view>{{showContent}}</view>
+
+<view class="footer">
+<text>发布于:{{createTime}}</text><image src="{{eyeImg}}"></image>{{readNum}}<image src="{{zanImg}}"></image>{{zanNum}}
+</view>
+<view style="height:35px;"></view>

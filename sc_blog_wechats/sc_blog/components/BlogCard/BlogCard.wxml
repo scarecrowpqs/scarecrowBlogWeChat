@@ -1,0 +1,12 @@
+<!--sc_blog/components/BlogCard/BlogCard.wxml-->
+<view class="sc_card_form" bindtap="redictTo">
+    <view class="sc_card_content">
+        <view class="sc_card_img_v"><image src="{{imgHref}}"></image></view>
+        <view class="sc_card_img_c">
+        {{showHandleStr}}
+        </view>
+    </view>
+    <view class="sc_card_tips">
+    <text class="sc_card_text">{{showTime}}</text><image src="{{eyeImg}}" class="sc_card_eyes"></image> {{showHandleReadNum}}<image src="{{zanImg}}" class="sc_card_zan"></image> {{showHandleZanNum}}
+    </view>
+</view>

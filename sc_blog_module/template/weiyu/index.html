@@ -1,0 +1,201 @@
+{template 'common/header'}
+{template 'common/headlib'}
+
+
+<div class="layui-tab">
+    <ul class="layui-tab-title">
+      <li class="layui-this">微语数据管理</li>
+      <li>添加微语</li>
+    </ul>
+    <div class="layui-tab-content">
+      <div class="layui-tab-item layui-show">
+        <div style="width: 95%;margin: auto;margin-top: 20px;">
+            <div class="layui-row">
+                <div class="layui-col-md-offset9 layui-col-md2">
+                    <input type="text" class="layui-input" placeholder="输入内容搜索" id="searchContent">
+                </div>
+                <div class="layui-col-md1">
+                    <button class="layui-btn" style="width: 100%;" id="searchBtn">搜索</button>
+                </div>
+            </div>
+            <table id="showWeiYuTable" lay-filter="test"></table>
+        </div>
+      </div>
+      <div class="layui-tab-item">
+        <div class="fromContent">
+            <div class="layui-form layui-fluid">
+                <div class="layui-row showLine">
+                    <div class="layui-col-md3 showTitle">
+                        内容:
+                    </div>
+    
+                    <div class="layui-col-md7">
+                        <textarea id="weiyuContent" placeholder="请输入内容" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+    
+                <div class="layui-row showLine">
+                    <div class="layui-col-md3 showTitle">
+                        是否公开:
+                    </div>
+    
+                    <div class="layui-col-md7">
+                        <select id="isGk" lay-verify="required">
+                            <option value="1">是</option>
+                            <option value="2">否</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <div class="layui-row showLine">
+                    <div class="layui-col-md-offset4 layui-col-md4 showTitle">
+                        <a class="layui-btn" style="width: 80%;" id="addBtn">确 定</a>
+                    </div>
+                </div>
+            </div>
+        </div>  
+      </div>
+    </div>
+  </div>
+
+
+
+<script>
+    layui.use(['layer', 'table', 'element'], function(){
+        layer = layui.layer;
+        table = layui.table;
+        element  = layui.element ;
+        
+
+        var tableIndex = table.render({
+            elem: '#showWeiYuTable'
+            ,url: '/web/index.php?c=site&a=entry&do=GetWeiYuListPageApi&m=sc_blog' //数据接口
+            ,page: true //开启分页
+            ,limit:15
+            ,limits:[15]
+            ,where:{sc:$("#searchContent").val()}
+            ,cols: [[ //表头
+                {field: 'id', title: 'ID'}
+                ,{field: 'content', title: '内容'}
+                ,{field: 'status', title: '显示/隐藏'}
+                ,{field: 'cdat', title: '发布时间'}
+                ,{field: '', title: '操作', width: "20%",templet: function(d){
+                    var str = "<a class='layui-btn layui-btn-sm' style='color:white;' onclick='edit(\""+ d.id +"\")'>编辑</a>";
+                    str += "<a class='layui-btn layui-btn-sm layui-btn-danger' style='color:white;' onclick='deleteWeiYu(\""+ d.id +"\")'>删除</a>";
+                    return str;
+                }}
+            ]]
+            ,response: {
+                statusName: 'status' //规定数据状态的字段名称，默认：code
+                ,statusCode: "YES" //规定成功的状态码，默认：0
+                ,msgName: 'info' //规定状态信息的字段名称，默认：msg
+                ,countName: 'total' //规定数据总数的字段名称，默认：count
+                ,dataName: 'data' //规定数据列表的字段名称，默认：data
+            },
+            text: {
+                none: '暂无相关数据'
+            }
+        });
+
+
+        $("#searchBtn").click(function(){
+            tableIndex.reload({
+                where: {
+                    sc: $("#searchContent").val()
+                }
+                ,page: {
+                    curr: 1
+                }
+            });
+        });
+    
+        $("#addBtn").click(function (){
+            var weiyuContent = $("#weiyuContent").val();
+            var isGk = $("#isGk").val();
+
+            if (weiyuContent == "") {
+                layer.msg("微语内容不能为空!");
+                return false;
+            }
+
+            var data = {
+                weiyuContent:weiyuContent,
+                isGk:isGk
+            };
+
+            var url = '/web/index.php?c=site&a=entry&do=AddWeiYuApi&m=sc_blog';
+            $.ajax({
+                url:url,
+                dataType:'JSON',
+                type:'POST',
+                data:data,
+                success:function(datas) {
+                    if (datas.status == "YES") {
+                        layer.msg(datas.info, {anim:0}, function() {
+                            window.location.reload();
+                        })
+                    } else {
+                        layer.msg(datas.info);
+                    }
+                },
+                error:function() {
+                    layer.msg("服务器连接失败");
+                }
+            });
+        });
+    });
+
+    function edit(id) {
+        layer.open({
+            type: 2,
+            title:"修改微语",
+            area: ['970px', '600px'],
+            content: '/web/index.php?c=site&a=entry&do=EditWeiYu&m=sc_blog&id=' + id,
+            end:function() {
+                $("#searchBtn").click();
+            }
+        });
+    }
+
+    /**
+        * 删除数据
+        * @param id
+        */
+    function deleteWeiYu(id){
+        var url = '/web/index.php?c=site&a=entry&do=DeleteWeiYuApi&m=sc_blog&id=' + id;
+        $.get(url, function (datas){
+            if (datas.status == 'YES') {
+                layer.msg(datas.info, {anim:0}, function(){
+                    $("#searchBtn").click();
+                });
+            } else {
+                layer.msg(datas.info);
+            }
+        }, 'json');
+    }
+</script>
+
+<style>
+        .fromContent{
+            display: block;
+            width: 80%;
+            margin: auto;
+            margin-top: 50px;
+        }
+
+        .showTitle{
+            text-align: right;
+            line-height: 38px;
+            font-size: 20px;
+            padding-right: 15px;
+        }
+
+        .showLine{
+            margin-top: 20px;
+        }
+</style>
+
+
+
+
+{template 'common/footer'}

@@ -1,0 +1,6 @@
+<navigation nav-height="{{navHeight}}"  title-postion="left">{{title}}</navigation>
+<searchmenu bindscevent="searchPage"></searchmenu>
+<view wx:for="{{showContentList}}" wx:key="index">
+    <blog-card show-str="{{item.title}}" show-read-num="{{item.read}}" show-zan-num="{{item.zan}}" show-time="{{item.time}}" href="{{item.href}}" img-href="{{item.imgHref}}"></blog-card>
+</view>
+<view style="height:48px;"></view>

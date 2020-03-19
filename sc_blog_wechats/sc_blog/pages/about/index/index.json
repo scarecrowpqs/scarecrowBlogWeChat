@@ -1,0 +1,6 @@
+{
+    "component": true,
+    "usingComponents": {
+        "works-card": "/sc_blog/components/FrendCard/FrendCard"
+    }
+}

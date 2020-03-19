@@ -1,0 +1,12 @@
+<view class="timeaxisForm" wx:if="{{showFx == 'left'}}">
+    <view class="leftShowTime">{{showTime}}<text class="leftShowRedio"></text></view>
+    <view class="rightShowContent">
+        <view class="rithtContent"><slot></slot></view>
+    </view>
+</view>
+<view class="timeaxisForm" wx:if="{{showFx == 'right'}}">
+    <view class="leftShowContent">
+        <view class="leftContent"><slot></slot></view>
+    </view>
+    <view class="rightShowTime"><text class="rightShowRedio"></text>{{showTime}}</view>
+</view>

@@ -1,0 +1,6 @@
+<view wx:if="{{isShowImg}}" class="scSendMsgHide" bindtap="clickSendMsg">+</view>
+<view class="scSendMsgForm" wx:if="{{isShowSendForm}}">
+    <textarea class="scSendMsgInput" auto-height="{{true}}" fixed="{{true}}"  show-confirm-bar="{{false}}" bindinput="getInputData" value="{{sendMsgData}}" cursor-spacing="20"></textarea>
+    <image class="scSendMsgGo" src="{{zfjimg}}" bindtap="sendMsg"></image>
+    <image class="scSendMsgDown" src="{{closeimg}}" bindtap="clickCloseSendForm"></image>
+</view>

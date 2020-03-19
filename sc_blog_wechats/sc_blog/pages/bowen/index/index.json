@@ -1,0 +1,7 @@
+{
+    "component": true,
+    "usingComponents": {
+        "searchmenu":"/sc_blog/components/SearchMenu/SearchMenu",
+        "blog-card":"/sc_blog/components/BlogCard/BlogCard"
+    }
+}

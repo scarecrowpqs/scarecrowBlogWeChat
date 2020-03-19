@@ -1,0 +1,6 @@
+<navigation nav-height="{{navHeight}}"  title-postion="left">{{title}}</navigation>
+<view class="backgroupForm" style="height:{{windowHeight}}px;"><image src="/sc_blog/resource/img/frendlink/bg.jpg"></image></view>
+
+<frend-card wx:for="{{frendLinkList}}"  wx:key="*this" img-href="{{item.imgHref}}" frend-name="{{item.name}}" frend-introduce="{{item.introduce}}" to-link="{{item.toHref}}"></frend-card>
+
+<view style="height:48px;"></view>

@@ -1,0 +1,7 @@
+{
+    "component": true,
+    "usingComponents": {
+        "say-msg":"/sc_blog/components/SayMsg/SayMsg",
+        "send-msg":"/sc_blog/components/SendMsg/SendMsg"
+    }
+}

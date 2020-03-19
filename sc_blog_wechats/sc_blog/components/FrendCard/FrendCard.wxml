@@ -1,0 +1,5 @@
+<!--sc_blog/components/FrendCard/FrendCard.wxml-->
+<view class="sc_card_form" bindtap="switchTab">
+    <view class="sc_show_img"><image src="{{imgHref}}"></image></view>
+    <view class="sc_show_content">{{showContent}}</view>
+</view>

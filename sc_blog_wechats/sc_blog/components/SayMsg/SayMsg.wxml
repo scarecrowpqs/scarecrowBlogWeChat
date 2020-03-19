@@ -1,0 +1,7 @@
+<view class="scMsgForm">
+    <view class="scMsgImg"><image src="{{userImgHref}}"></image><view class="sxMsgUserName">{{showUserName}}</view></view>
+    <view class="scMsgContentForm">
+        <view class="scMsgJianTou"></view>
+        <view class="scMsgContent">{{userSayStr}}<view style="text-align:right;">{{addTimes}}</view></view>
+    </view>
+</view>

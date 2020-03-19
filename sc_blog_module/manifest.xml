@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.w7.cc" versionCode="">
+	
+	<application setting='false'>
+		<name><![CDATA[稻草人博客]]></name>
+
+		<identifie><![CDATA[sc_blog]]></identifie>
+
+		<version><![CDATA[1.0.0]]></version>
+
+		<ability><![CDATA[ScarecrowBlog]]></ability>
+
+		<type><![CDATA[activity]]></type>
+
+		<description><![CDATA[ScarecrowBlog是一款个人博客小程序，它可以加友链、发心情说说、写博文等等]]></description>
+
+		<author><![CDATA[Scarecrow]]></author>
+
+		<url><![CDATA[]]></url>
+
+		<setting><![CDATA[]]></setting>
+
+	</application>
+
+	
+	<platform>
+		<rule embed="false" />
+
+		<rule embed="false" />
+
+	<supports>
+
+			<item type="wxapp" />
+	</supports>
+
+	</platform>
+
+	
+	<bindings>
+
+		<menu>
+			<entry title="个人管理" do="UserManage" state="UserManage" direct="1" />
+			<entry title="文章设置" do="ArticleManage" state="ArticleManage" direct="1" />
+			<entry title="微语设置" do="WeiYuManage" state="WeiYuManage" direct="1" />
+			<entry title="友链设置" do="FrendLinkManage" state="FrendLinkManage" direct="1" />
+			<entry title="留言管理" do="MsgManage" state="MsgManage" direct="1" />
+		</menu>
+
+	</bindings>
+
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

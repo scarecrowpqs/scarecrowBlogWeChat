@@ -1,0 +1,19 @@
+.showUserHeadImg{
+    width: 60px;
+    height: 60px;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.showUserName{
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.loginBtn{
+    background-color: green;
+    margin-top: 20px;
+    width: 160px;
+    margin: auto;
+}

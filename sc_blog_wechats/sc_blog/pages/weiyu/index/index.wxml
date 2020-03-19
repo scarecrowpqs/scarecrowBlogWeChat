@@ -1,0 +1,7 @@
+<navigation nav-height="{{navHeight}}"  title-postion="left">{{title}}</navigation>
+<view class="backgroupForm" style="height:{{windowHeight}}px;"><image src="/sc_blog/resource/img/weiyu/bg.jpg"></image></view>
+
+
+<time-axis wx:for="{{weiyuList}}" wx:key="id" show-fx="{{index % 2 == 0 ? 'left' : 'right'}}"  show-time="{{item.showTime}}">{{item.showStr}}</time-axis>
+
+<view style="height:48px;"></view>

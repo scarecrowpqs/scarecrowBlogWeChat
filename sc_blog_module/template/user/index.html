@@ -1,0 +1,391 @@
+{template 'common/header'}
+{template 'common/headlib'}
+<script src="/addons/sc_blog/plugins/scarecrowupload/ScarecrowPatchUpload.js"></script>
+
+<div class="layui-tab">
+    <ul class="layui-tab-title">
+      <li class="layui-this">个人作品管理</li>
+      <li>添加个人作品</li>
+      <li>个人基础数据管理</li>
+    </ul>
+    <div class="layui-tab-content">
+                
+        <div class="layui-tab-item layui-show">
+            <div style="width: 95%;margin: auto;margin-top: 20px;">
+                <table id="showWorksTable" lay-filter="test"></table>
+            </div>
+        </div>
+                
+        <div class="layui-tab-item">
+            <div class="fromContent">
+                <div class="layui-form layui-fluid">
+                    <div class="layui-row showLine">
+                        <div class="layui-col-md-offset2 layui-col-md3 showTitle">
+                            作品名称:
+                        </div>
+        
+                        <div class="layui-col-md3">
+                            <input type="text" class="layui-input" id="workName">
+                        </div>
+                    </div>
+                    
+                    <div class="layui-row showLine">
+                        <div class="layui-col-md-offset2 layui-col-md3 showTitle">
+                            作品地址:
+                        </div>
+        
+                        <div class="layui-col-md3">
+                            <input type="text" class="layui-input" id="workToHref">
+                        </div>
+                    </div>
+        
+                    <div class="layui-row showLine">
+                        <div class="layui-col-md-offset2 layui-col-md3 showTitle">
+                            作品介绍:
+                        </div>
+        
+                        <div class="layui-col-md3">
+                            <textarea class="layui-textarea" id="workJieShao"></textarea>
+                        </div>
+                    </div>
+        
+
+                    <div class="layui-row showLine">
+                        <div class="layui-col-md-offset2 layui-col-md3 showTitle">
+                            封面
+                        </div>
+            
+                        <div class="layui-col-md3">
+                            <div style="width: 380px;height: 200px;display: block;border: 1px solid #C7C7C7;">
+                                <img src="{$defaultImg}" alt="" width="100%" height="100%" id="showFmImg">
+                                <input type="file" name="upfile" id="uploadFmImg" style="visibility: hidden;">
+                            </div>
+                            <div style="margin-top: 5px;">
+                                <button class="layui-btn" id="selectFmImgBtn">选择图片</button>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="layui-row showLine">
+                        <div class="layui-col-md-offset4 layui-col-md4 showTitle">
+                            <a class="layui-btn" style="width: 80%;" id="addWorksBtn">确 定</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="layui-tab-item">
+            <div class="fromContent">
+                <div class="layui-form layui-fluid">
+                    <div class="layui-row showLine">
+                        <div class="layui-col-md-offset2 layui-col-md3 showTitle">
+                            昵称:
+                        </div>
+        
+                        <div class="layui-col-md3">
+                            <input type="text" class="layui-input" id="nickName" value="{$userContent['nickname']}">
+                        </div>
+                    </div>
+        
+                    <div class="layui-row showLine">
+                        <div class="layui-col-md-offset2 layui-col-md3 showTitle">
+                            性别
+                        </div>
+        
+                        <div class="layui-col-md3">
+                            <select id="userSex" lay-verify="required">
+                                <option value="0" <?php echo $userContent['sex'] == 0 ? "selected" : ""; ?>>女</option>
+                                <option value="1" <?php echo $userContent['sex'] == 1 ? "selected" : ""; ?>>男</option>
+                            </select>
+                        </div>
+                    </div>
+        
+
+                    <div class="layui-row showLine">
+                        <div class="layui-col-md-offset2 layui-col-md3 showTitle">
+                            头像
+                        </div>
+            
+                        <div class="layui-col-md3">
+                            <div style="width: 380px;height: 200px;display: block;border: 1px solid #C7C7C7;">
+                                <img src="<?php echo $userContent['imgurl'] ? : $defaultImg; ?>" alt="" width="100%" height="100%" id="showHeaderImg">
+                                <input type="file" name="upfile" id="uploadHeaderImg" style="visibility: hidden;">
+                            </div>
+                            <div style="margin-top: 5px;">
+                                <button class="layui-btn" id="selectHeaderImgBtn">选择图片</button>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="layui-row showLine">
+                        <div class="layui-col-md-offset4 layui-col-md4 showTitle">
+                            <a class="layui-btn" style="width: 80%;" id="updateUserBtn">确 定</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+  </div>
+
+
+
+<script>
+    layui.use(['layer', 'table', 'element'], function(){
+        layer = layui.layer;
+        table = layui.table;
+        element  = layui.element ;
+        
+        var tableIndex = table.render({
+            elem: '#showWorksTable'
+            ,url: '/web/index.php?c=site&a=entry&do=GetWorksListApi&m=sc_blog' //数据接口
+            ,page: true //开启分页
+            ,limit:10
+            ,cols: [[ //表头
+                {field: 'id', title: 'ID'}
+                ,{field: 'workName', title: '作品名称'}
+                ,{field: 'introduce', title: '作品介绍'}
+                ,{field: 'imgHref', title: '封面地址'}
+                ,{field: 'toHref', title: '作品地址'}
+                ,{field: '', title: '操作', width: "20%",templet: function(d){
+                    var str = "<a class='layui-btn layui-btn-sm layui-btn-danger' style='color:white;' onclick='deleteWork(\""+ d.id +"\")'>删除</a>";
+                    return str;
+                }}
+            ]]
+            ,response: {
+                statusName: 'status' //规定数据状态的字段名称，默认：code
+                ,statusCode: "YES" //规定成功的状态码，默认：0
+                ,msgName: 'info' //规定状态信息的字段名称，默认：msg
+                ,countName: 'total' //规定数据总数的字段名称，默认：count
+                ,dataName: 'data' //规定数据列表的字段名称，默认：data
+            },
+            text: {
+                none: '暂无相关数据'
+            }
+        });
+        
+        $("#updateUserBtn").click(function (){
+            var nickName = $("#nickName").val();
+            var userSex = $("#userSex").val();
+            var uploadHeaderImg = $("#uploadHeaderImg")[0]['files'];
+            var updateUserUrl = "/web/index.php?c=site&a=entry&do=UpdateUserApi&m=sc_blog";
+            if (nickName == "") {
+                layer.msg("昵称内容不能为空!");
+                return false;
+            }
+
+            if (userSex == "") {
+                layer.msg("用户性别不能为空!");
+                return false;
+            }
+
+
+            var data = {
+                nickName:nickName,
+                userSex:userSex,
+                imageUrl:"<?php echo $userContent['imgurl'] ? : $defaultImg; ?>",
+                id:"{$userContent['id']}"
+            };
+            
+            if (uploadHeaderImg.length > 0) {
+                var url = '/web/index.php?c=site&a=entry&do=UploadImgFileApi&m=sc_blog'
+                var upload = new ScarecrowPatchUpload(url);
+                upload.setFuncUploadSuccess(function (datas) {
+                    var dataObj = JSON.parse(datas);
+                    var filePath = dataObj['path'];
+                    if (filePath == undefined || filePath=="") {
+                        layer.msg("图片上传失败");
+                    } else {
+                        data['imageUrl'] = "{$_W['attachurl_local']}" + filePath;
+                        $.post(updateUserUrl,data, function(datas){
+                            layer.msg(datas.info);
+                            if (datas.status == "YES") {
+                                setTimeout(function(){
+                                    window.location.reload();
+                                }, 1000);
+                            }
+                        }, 'json');
+                    }
+                });
+                upload.setFuncUploadError(function() {
+                    layer.msg("头像图片上传失败，请检查BUG.");
+                });
+                upload.addFile(uploadHeaderImg[0]);
+                upload.sendFile();
+            } else {
+                $.post(updateUserUrl,data, function(datas){
+                    layer.msg(datas.info);
+                    if (datas.status == "YES") {
+                        setTimeout(function(){
+                            window.location.reload();
+                        }, 1000);
+                    }
+                }, 'json');
+            }
+        });
+    
+        $("#selectHeaderImgBtn").click(function() {
+            var fileDiv = $("#uploadHeaderImg")[0];
+            fileDiv.click();
+            fileDiv.onchange = function() {
+                var allFileObj = this.files;
+                var fileObj = allFileObj[0];
+                if(!checkFileExt(fileObj.name)) {
+                    layer.msg("文件格式不支持上传");
+                    return ;
+                }
+
+                var imgData = window.URL.createObjectURL(fileObj);
+                $("#showHeaderImg").attr('src', imgData);
+            }
+        });
+             
+        $("#addWorksBtn").click(function (){
+            var workName = $("#workName").val();
+            var workJieShao = $("#workJieShao").val();
+            var workToHref = $("#workToHref").val();
+            var uploadFmImg = $("#uploadFmImg")[0]['files'];
+            var updateUserUrl = "/web/index.php?c=site&a=entry&do=AddWorksDataApi&m=sc_blog";
+            if (workName == "") {
+                layer.msg("作品名称不能为空!");
+                return false;
+            }
+
+            if (workJieShao == "") {
+                layer.msg("作品介绍不能为空!");
+                return false;
+            }
+
+
+            var data = {
+                workName:workName,
+                workJieShao:workJieShao,
+                workToHref:workToHref,
+                imageUrl:"{$defaultImg}"
+            };
+            
+            if (uploadFmImg.length > 0) {
+                var url = '/web/index.php?c=site&a=entry&do=UploadImgFileApi&m=sc_blog'
+                var upload = new ScarecrowPatchUpload(url);
+                upload.setFuncUploadSuccess(function (datas) {
+                    var dataObj = JSON.parse(datas);
+                    var filePath = dataObj['path'];
+                    if (filePath == undefined || filePath=="") {
+                        layer.msg("图片上传失败");
+                    } else {
+                        data['imageUrl'] = "{$_W['attachurl_local']}" + filePath;
+                        $.post(updateUserUrl,data, function(datas){
+                            layer.msg(datas.info);
+                            if (datas.status == "YES") {
+                                setTimeout(function(){
+                                    window.location.reload();
+                                }, 1000);
+                            }
+                        }, 'json');
+                    }
+                });
+                upload.setFuncUploadError(function() {
+                    layer.msg("头像图片上传失败，请检查BUG.");
+                });
+                upload.addFile(uploadFmImg[0]);
+                upload.sendFile();
+            } else {
+                $.post(updateUserUrl,data, function(datas){
+                    layer.msg(datas.info);
+                    if (datas.status == "YES") {
+                        setTimeout(function(){
+                            window.location.reload();
+                        }, 1000);
+                    }
+                }, 'json');
+            }
+        });
+    
+        $("#selectFmImgBtn").click(function() {
+            var fileDiv = $("#uploadFmImg")[0];
+            fileDiv.click();
+            fileDiv.onchange = function() {
+                var allFileObj = this.files;
+                var fileObj = allFileObj[0];
+                if(!checkFileExt(fileObj.name)) {
+                    layer.msg("文件格式不支持上传");
+                    return ;
+                }
+
+                var imgData = window.URL.createObjectURL(fileObj);
+                $("#showFmImg").attr('src', imgData);
+            }
+        });
+
+
+        /**
+         * 检查文件是否被允许上传
+         * @param filename
+         * @returns {boolean}
+         */
+        function checkFileExt(filename) {
+            var flag = false;
+            var arr = ["jpg","png","gif","jpeg"];
+            var index = filename.lastIndexOf(".");
+            var ext = filename.substr(index+1);
+            for(var i=0;i<arr.length;i++)
+            {
+                if(ext == arr[i])
+                {
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    });
+    
+    /**
+        * 删除数据
+        * @param id
+        */
+    function deleteWork(id){
+        var url = '/web/index.php?c=site&a=entry&do=DeleteWorkApi&m=sc_blog&id=' + id;
+        $.get(url, function (datas){
+            if (datas.status == 'YES') {
+                layer.msg(datas.info, {anim:0}, function(){
+                    window.location.reload();
+                });
+            } else {
+                layer.msg(datas.info);
+            }
+        }, 'json');
+    }
+</script>
+
+<style>
+        .fromContent{
+            display: block;
+            width: 80%;
+            margin: auto;
+            margin-top: 50px;
+        }
+
+        .showTitle{
+            text-align: right;
+            line-height: 38px;
+            font-size: 20px;
+            padding-right: 15px;
+        }
+
+        .showLine{
+            margin-top: 20px;
+        }
+</style>
+
+
+
+
+{template 'common/footer'}

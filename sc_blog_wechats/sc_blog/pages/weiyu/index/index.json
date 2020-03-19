@@ -1,0 +1,6 @@
+{
+    "component": true,
+    "usingComponents": {
+        "time-axis":"/sc_blog/components/TimeAxis/TimeAxis"
+    }
+}

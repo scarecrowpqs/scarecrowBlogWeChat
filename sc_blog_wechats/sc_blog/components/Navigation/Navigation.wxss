@@ -1,0 +1,10 @@
+/* sc_blog/components/Navigation/Navigation.wxss */
+.showNav{
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+}
+.tipsNav{
+  height: 44px;
+  line-height: 44px;
+}

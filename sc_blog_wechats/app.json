@@ -1,0 +1,60 @@
+{
+    "pages": [
+        "sc_blog/pages/bowen/index/index",
+        "sc_blog/pages/frendlink/index/index",
+        "sc_blog/pages/weiyu/index/index",
+        "sc_blog/pages/about/index/index",
+        "sc_blog/pages/msg/index/index",
+        "sc_blog/pages/bowen/article/article",
+        "sc_blog/pages/common/login/login"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "ScarecrowBlog",
+        "navigationBarBackgroundColor": "#FFFFFF",
+        "navigationStyle": "custom"
+    },
+    "tabBar": {
+        "color": "#8a8a8a",
+        "selectedColor": "#1afa29",
+        "backgroundColor": "#e6e6e6",
+        "list": [
+            {
+                "pagePath": "sc_blog/pages/bowen/index/index",
+                "text": "博文",
+                "iconPath": "sc_blog/resource/img/tabicon/bowen.png",
+                "selectedIconPath": "sc_blog/resource/img/tabicon/bowen_click.png"
+            },
+            {
+                "pagePath": "sc_blog/pages/weiyu/index/index",
+                "text": "微语",
+                "iconPath": "sc_blog/resource/img/tabicon/weiyu.png",
+                "selectedIconPath": "sc_blog/resource/img/tabicon/weiyu_click.png"
+            },
+            {
+                "pagePath": "sc_blog/pages/msg/index/index",
+                "text": "留言",
+                "iconPath": "sc_blog/resource/img/tabicon/msg.png",
+                "selectedIconPath": "sc_blog/resource/img/tabicon/msg_click.png"
+            },
+            {
+                "pagePath": "sc_blog/pages/frendlink/index/index",
+                "text": "友链",
+                "iconPath": "sc_blog/resource/img/tabicon/frendlink.png",
+                "selectedIconPath": "sc_blog/resource/img/tabicon/frendlink_click.png"
+            },
+            {
+                "pagePath": "sc_blog/pages/about/index/index",
+                "text": "关于",
+                "iconPath": "sc_blog/resource/img/tabicon/about.png",
+                "selectedIconPath": "sc_blog/resource/img/tabicon/about_click.png"
+            }
+        ],
+        "custom": true
+    },
+    "sitemapLocation": "sitemap.json",
+    "usingComponents": {
+        "navigation": "sc_blog/components/Navigation/Navigation"
+    }
+}

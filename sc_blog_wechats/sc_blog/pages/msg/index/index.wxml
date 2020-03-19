@@ -1,0 +1,6 @@
+<navigation nav-height="{{navHeight}}"  title-postion="left">{{title}}</navigation>
+
+<say-msg wx:for="{{allMsgList}}" wx:key="id" userName="{{item.userName}}" userImgHref="{{item.userImgHref}}" userSayStr="{{item.userSayStr}}" addTimes="{{item.addTimes}}"></say-msg>
+
+<send-msg bindscSendMsgEvent="sendMsg"></send-msg>
+<view style="height:48px;"></view>

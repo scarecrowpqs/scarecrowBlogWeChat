@@ -1,0 +1,11 @@
+<!--sc_blog/components/Navigation/Navigation.wxml-->
+<view class="showNav" style="height:{{navHeight}}px;background-color: {{backgroundColor}};">
+  <view class="titleNav" style="height:{{navHeight - 44}}px;background-color: {{backgroundColor}};"></view>
+  <view style="  position: absolute;top:{{navHeight- 38}}px;left:15px;" wx:if="{{showReturnIcon == 'true'}}">
+       <image style="width:24px;height:28px;" src="{{returnIcon}}" bindtap="backPage"></image>
+  </view>
+  <view class="tipsNav" style="text-align:{{titlePostion}};background-color: {{backgroundColor}};">
+     <text style="{{titlePostion == 'left' ? (showReturnIcon == 'true' ? 'margin-left:45px;' : 'margin-left:15px;') : ''}}font-size:{{showFontSize}}px;color:{{showFontColor}}"><slot wx:if="{{showTitleContent == ''}}"></slot>{{showTitleContent}}</text>
+  </view>
+</view>
+<view style="height:{{navHeight}}px;"></view>

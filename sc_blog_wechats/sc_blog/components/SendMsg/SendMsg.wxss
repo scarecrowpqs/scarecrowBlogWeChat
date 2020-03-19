@@ -1,0 +1,48 @@
+.scSendMsgHide{
+    position: fixed;
+    right: 8px;
+    bottom: 52px;
+    width: 40px;
+    height: 40px;
+    background-color: #177FFF;
+    border-radius: 20px;
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    line-height: 40px;
+    box-shadow: 1px 1px 6px rgba(7,118,253, 0.36);
+}
+
+.scSendMsgForm{
+    position: fixed;
+    right: 0px;
+    bottom: 48px;
+    width: 100%;
+    min-height: 55px;
+    background-color: #F2F2F2;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.36);
+}
+
+.scSendMsgInput{
+    border: 2px solid #C6C6C6;
+    width: calc(100% - 110px);
+    min-height: 35px;
+    border-radius: 6px;
+    margin-left: 10px;
+    margin-top: 7.5px;
+    padding-left: 5px;
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 20px;
+}
+
+.scSendMsgForm > image{
+    width: 30px;
+    height: 30px;
+    margin-left: 8px;
+    margin-top: 10px;
+    /* background-color: red; */
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 6px;
+}

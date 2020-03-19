@@ -1,0 +1,30 @@
+<navigation nav-height="{{navHeight}}"  title-postion="left">{{title}}</navigation>
+
+<view class="showUserInfoForm">
+    <view class="showBackgroundImg">
+        <image src="{{headBgImgUrl}}"></image>
+    </view>
+    <view class="showHeadImg">
+        <image src="{{headeImgUrl}}"></image>
+        <view class="shwoSex"><image src="/sc_blog/resource/img/about/{{sex == '男' ? 'xbnan' : 'xbnv'}}.png"></image></view>
+    </view>
+    <view class="showName">{{userName}}</view>
+    <view class="showUserAbout">
+        <view>
+            <view>文章数</view>
+            <view>{{articleNum}}</view>
+        </view>
+        <view>
+            <view>作品数</view>
+            <view>{{worksNum}}</view>
+        </view>
+        <view>
+            <view>访问数</view>
+            <view>{{requestNum}}</view>
+        </view>
+    </view>
+</view>
+
+<works-card wx:for="{{worksLinkList}}"  wx:key="*this" img-href="{{item.imgHref}}" frend-name="{{item.name}}" frend-introduce="{{item.introduce}}" to-link="{{item.toHref}}"></works-card>
+
+<view style="height:48px;"></view>
